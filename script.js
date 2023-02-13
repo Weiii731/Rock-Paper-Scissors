@@ -11,18 +11,33 @@ function getComputerChoice() {
     return output;
 }
 
+function check() {
+    if (playerScores == 5) {
+        alert('You Win');
+    } else if (computerScores == 5) {
+        alert("You Lost");
+    }
+    playerScores = 0;
+    computerScores = 0;
+}
+
 function playRound(playerSelection, computerSelection) {
     playerSelection.toLowerCase();
     if (playerSelection === computerSelection) {
-        console.log('tie');
-        return "tie";
+        content.textContent = "tie";
     } else if (map.get(playerSelection) === computerSelection) {
-        console.log('win');
-        return "win";
+        content.textContent = "win";
+        playerScores++;
     } else {
-        console.log('lose');
-        return "lose";
+        content.textContent = "lose";
+        computerScores++;
     }
+    container.appendChild(content);
+    if (playerScores == 5 || computerScores == 5) {
+        check();
+    }
+    
+
 }
 
 // function game() {
@@ -69,3 +84,9 @@ paperButton.addEventListener('click', () => {
 scissorsButton.addEventListener('click', () => {
     playRound("scissors", getComputerChoice());
 });
+
+const container = document.querySelector("body");
+const content = document.createElement("div");
+
+let playerScores = 0;
+let computerScores = 0;
